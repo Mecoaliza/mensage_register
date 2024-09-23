@@ -21,7 +21,7 @@ def read_excel(filepath):
         return [], None
     
 
-def obter_mensagem_siat():
+def get_mensage_siat():
     try:
         janela_siat = gw.getWindowsWithTitle('teoff-exe')[0]
         janela_siat.activate()
@@ -38,7 +38,7 @@ def obter_mensagem_siat():
         return ""
 
 
-def iniciar_siat(path_imgs):
+def start_siat(path_imgs):
     siat_app = OpenAppLogin("password", "user")
     siat_app.enter_acclient()
     time.sleep(10)
@@ -51,12 +51,12 @@ def iniciar_siat(path_imgs):
 
 
 
-def registrar_mensagens_siat(contas, df, nome_arquivo):
+def register_mensage_siat(contas, df, nome_arquivo):
     for conta in contas:
         logging.info(f'Registrando conta: {conta}')
         py.write(str(conta))
         time.sleep(2)
-        mensagem = obter_mensagem_siat()
+        mensagem = get_mensage_siat()
 
         if "Você deseja Alterar ou Excluir" in mensagem:
             py.press("a")

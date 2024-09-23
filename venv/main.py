@@ -1,17 +1,23 @@
-from script import iniciar_siat, read_excel, registrar_mensagens_siat
+from script import start_siat, read_excel, register_mensage_siat
 import time
+from dotenv import load_dotenv
+import os
 
-excel_path = "Mensagem_SIAT.xlsx"
-path_imgs = "C:\\Users\\user\\Documents\\Python\\images\\"
+load_dotenv()
 
 def main():
 
-    abrir_siat = OpenAppLogin("passwords", "user")
+    login = os.getenv("LOGIN")
+    password = os.getenv("PASSWORD")
+    excel_path = os.getenv("EXCEL_PATH")
+    img_path = os.getenv("IMG_PATH")
+
+    abrir_siat = OpenAppLogin(login, password)
     abrir_siat.enter_acclient()
     time.sleep(10)
 
     entrar_siat = EnterSiat()
-    entrar_siat.find_siattext(path_imgs, "SIAT")
+    entrar_siat.find_siattext(img_path, "SIAT")
     time.sleep(15)
 
     atalho = DigitKeysboard()
@@ -22,7 +28,7 @@ def main():
     lista_contas, df = read_excel(excel_path)
 
     if lista_contas:
-        registrar_mensagens_siat(lista_contas, df, excel_path)
+        register_mensage_siat(lista_contas, df, excel_path)
     else:
         print("Nenhuma conta para processar.")
 
